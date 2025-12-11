@@ -9,8 +9,8 @@ struct Dial {
 impl Dial {
     fn load() -> Result<Vec<Dial>, Box<dyn Error>> {
         let mut res: Vec<Dial> = vec![];
-        let contents = fs::read_to_string("../day1_input.txt")
-            .expect("Should have been able to read the file");
+        let contents =
+            fs::read_to_string("day1_input.txt").expect("Should have been able to read the file");
         let lines: Vec<&str> = contents.split("\n").collect();
         for line in lines {
             if !line.is_empty() {
@@ -54,7 +54,8 @@ impl Dial {
     }
 }
 
-pub fn solve() -> Result<(i64, usize), Box<dyn Error>> {
+#[test]
+pub fn solve() -> Result<(), Box<dyn Error>> {
     let data = Dial::load();
     let mut count = (50, 0);
     let mut tmp: (i64, usize);
@@ -62,5 +63,6 @@ pub fn solve() -> Result<(i64, usize), Box<dyn Error>> {
         tmp = dial.turn(count.0);
         count = (tmp.0, tmp.1 + count.1);
     }
-    Ok(count)
+    dbg!(count.1);
+    Ok(())
 }
