@@ -4,8 +4,8 @@ use std::fs;
 pub fn spread(id_string: &str) -> Result<Vec<String>, std::num::ParseIntError> {
     let mut res: Vec<String> = vec![];
     let split: (&str, &str) = id_string.split_once("-").expect("must be '-' there");
-    let first: u128 = split.0.trim().parse::<u128>()?;
-    let sec: u128 = split.1.trim().parse::<u128>()?;
+    let first: usize = split.0.trim().parse::<usize>()?;
+    let sec: usize = split.1.trim().parse::<usize>()?;
     for n in first..=sec {
         res.push(n.to_string());
     }
@@ -35,13 +35,13 @@ pub fn load() -> Result<Vec<String>, Box<dyn Error>> {
 
 #[test]
 fn solve() -> Result<(), Box<dyn Error>> {
-    let mut count: u128 = 0;
+    let mut count: usize = 0;
     let data = load()?;
     for line in data {
         let ids = spread(&line)?;
         for id in ids {
             if is_invalid(&id) {
-                count = count + id.parse::<u128>()?;
+                count = count + id.parse::<usize>()?;
             }
         }
     }
